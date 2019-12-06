@@ -1,0 +1,14 @@
+#cloud-config
+
+users:
+- name: testuser
+
+package_update: true
+
+package:
+- nginx
+
+runcmd:
+- systemctl daemon-reload
+- systemctl enable nginx
+- systemctl start nginx

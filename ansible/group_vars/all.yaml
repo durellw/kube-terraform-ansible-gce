@@ -1,0 +1,4 @@
+k8s_version: "1.15.3-00"
+pod_network: "10.244.0.0/16"
+kubeadm_host: "k8s-master-0"
+k8s_api: "k8s-master-0"

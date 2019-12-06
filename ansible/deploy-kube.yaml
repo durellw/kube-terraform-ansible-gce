@@ -1,0 +1,22 @@
+---
+- hosts: k8s-deploy-host
+  become: yes
+  gather_facts: no
+  tasks:
+
+  - name: install kubeadm
+    apt:
+      name: kubeadm={{ k8s_version }}
+
+  - name: check if kubeadm-config.yml exists
+    stat:
+      path: kubeadm-config.yml
+    register: kubeadm_config
+    tags:
+    - test
+
+  - name: generate kubeadm-config.yml
+    shell: kubeadm config print init-defaults > kubeadm-config.yml
+    when: kubeadm_config.stat.isreg is not defined
+    tags:
+    - test

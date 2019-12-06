@@ -1,0 +1,34 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: install docker
+    package:
+      name: docker.io
+      state: latest
+
+  - name: enable and start docker
+    service:
+      name: docker
+      enabled: yes
+      state: started 
+
+  - name: add google cloud key for repos
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+
+  - name: add kubernetes repo
+    apt_repository:
+      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+
+  - name: Disable swap
+    command: swapoff -a
+
+  - name: Remove swapfile from /etc/fstab
+    mount:
+      name: swap
+      fstype: swap
+      state: absent

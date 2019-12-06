@@ -1,0 +1,6 @@
+[k8s-masters]
+34.68.45.243
+
+
+[k8s-deploy-host]
+k8s-master-0
